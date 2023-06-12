@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+    run:
+        ports:
+            - '127.0.0.1:3306:3306'
+        container_name: dev-mariadb
+        environment:
+            # - MARIADB_ROOT_PASSWORD=pass12345
+            - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+        image: run
+    phpmyadmin:
+        container_name: dev-phpmyadmin
+        links:
+            - 'dev-mariadb:db'
+        ports:
+            - '7098:80'
+        image: phpmyadmin/phpmyadmin
